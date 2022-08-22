@@ -1,0 +1,14 @@
+material oreo_base
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture oreo_base.png
+      }
+    }
+  }
+}
+

@@ -1,0 +1,71 @@
+<launch>
+  <arg name="x_pos" default="0"/>
+  <arg name="y_pos" default="0"/>
+  <arg name="z_pos" default="0.2"/> 
+  <arg name="yaw_pos" default="0.0"/>  
+  <arg name="y412" default="false"/>
+  <arg name="kinova" default="false"/>
+  <arg name="kinova_robotType" default="j2n6s300"/>
+  <arg name="kinova_robotName" default="$(arg kinova_robotType)"/>
+  
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint_tf" args="0 0 0 0 0 0 base_link base_footprint 100" />
+
+  <group if="$(arg y412)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find my_simulation)/worlds/younglin.world"/>
+      <arg name="paused" value="false"/>
+      <arg name="use_sim_time" value="true"/>
+      <arg name="gui" value="true"/>
+      <arg name="headless" value="false"/>
+      <arg name="debug" value="false"/>
+      <arg name="verbose" value="false"/>
+    </include>
+  </group>
+
+  <group if="$(eval arg('kinova') == false)">
+    <include file="$(find oreo_description)/launch/oreo_vanilla.launch">
+      <arg name="x_pos" value="$(arg x_pos)"/>
+      <arg name="y_pos" value="$(arg y_pos)"/>
+      <arg name="z_pos" value="$(arg z_pos)"/> 
+      <arg name="yaw_pos" value="$(arg yaw_pos)"/>  
+    </include>
+  </group>
+  <group if="$(eval arg('kinova') == true)">
+    <include file="$(find oreo_description)/launch/oreo_kinova.launch">
+      <arg name="x_pos" value="$(arg x_pos)"/>
+      <arg name="y_pos" value="$(arg y_pos)"/>
+      <arg name="z_pos" value="$(arg z_pos)"/> 
+      <arg name="yaw_pos" value="$(arg yaw_pos)"/>  
+      <arg name="kinova_robotType" value="$(arg kinova_robotType)"/>  
+      <arg name="kinova_robotName" value="$(arg kinova_robotName)"/>  
+    </include>
+  </group>
+
+  <rosparam command="load" file="$(find oreo_description)/config/oreo_motor_controllers.yaml"/>
+  <node pkg="controller_manager"
+    type="spawner"
+    name="controller"
+    respawn="false"
+    output="screen"
+    ns="/oreo"
+    args="--namespace=/oreo r l b"/>
+
+  <node 
+    pkg="robot_state_publisher" 
+    type="robot_state_publisher" 
+    name="rob_state_pub" >
+  </node>
+
+  <!-- <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" /> -->
+    
+  <!-- <node 
+    pkg="joint_state_publisher" 
+    type="joint_state_publisher" 
+    name="joint_state_pub" >
+  </node> -->
+
+</launch>

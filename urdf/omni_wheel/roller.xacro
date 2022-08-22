@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<robot name="roller" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="roller" params="name roller_radius length radius id num parent offset_angle offset_z">
+    <xacro:property name="m" value="0.005" />
+    <xacro:property name="r" value="${radius}" />
+    <xacro:property name="l" value="${length}" />
+    <xacro:property name="i" value="${id}" />
+    <xacro:property name="n" value="${num}" />
+    <xacro:property name="o_z" value="${offset_z}" />
+    <xacro:property name="o_a" value="${offset_angle}" />
+    <xacro:property name="a" value="${2*pi*i/n + o_a*2*pi/n}" />
+
+    <link name="roller_${name}_${id}">
+      <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <mass value="${m}" />
+        <inertia
+          ixx="${m*(3*r*r+l*l)/12}"
+          ixy="0.0"
+          ixz="0.0"
+          iyy="${m*(3*r*r+l*l)/12}"
+          iyz="0.0"
+          izz="${m*r*r/2}" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${roller_radius}"/>
+        </geometry>
+        <surface>
+          <contact>
+              <ode>
+                <kp>1e15</kp>
+                <kd>1e13</kd>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+                <minDepth>0.001</minDepth>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+
+    <joint
+      name="roller_joint_${name}_${id}"
+      type="continuous">
+      <origin xyz="${o_z} ${cos(a)*r} ${sin(a)*r}" rpy="${a} 0 0" />
+      <parent link="${parent}" />
+      <child link="roller_${name}_${id}" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.0" friction="0.0001"/>
+    </joint>
+  </xacro:macro>
+</robot>

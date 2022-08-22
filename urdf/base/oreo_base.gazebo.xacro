@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot name="oreo_base_setting" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="omni_base_gazebo" params="link">
+    <gazebo reference="${link}">
+        <material>oreo_base</material>
+    </gazebo>
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <legacyModeNS>true</legacyModeNS>
+        <robotNamespace>/oreo</robotNamespace>
+      </plugin>
+    </gazebo>
+    <gazebo>
+      <plugin name="object_controller" filename="libomni_contorl.so">
+        <commandTopic>/cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <robotBaseFrame>base_link</robotBaseFrame>
+        <robotNamespace>oreo</robotNamespace>
+        <wheelRadius>0.075</wheelRadius>
+        <wheelTrack>0.23269</wheelTrack>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

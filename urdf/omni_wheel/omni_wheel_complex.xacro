@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<robot name="oreo_setting" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find oreo_description)/urdf/omni_wheel/roller.xacro"/>
+  <xacro:include filename="$(find oreo_description)/urdf/omni_wheel/omni_wheel.gazebo.xacro"/>
+  
+  <xacro:macro name="omni_wheel" params="name joint_xyz joint_rpy parent wheel_radius roller_radius roller_length">
+    <xacro:property name="link" value="wheel_link_${name}" />
+    <xacro:property name="joint" value="wheel_joint_${name}" />
+
+    <link name="${link}">
+      <inertial>
+        <origin
+          xyz="-0.014345 0.0 0.0"
+          rpy="0 0 0" />
+        <mass
+          value="0.44585" />
+        <inertia
+          ixx="0.0013133"
+          ixy="0.0"
+          ixz="0.0"
+          iyy="0.00066065"
+          iyz="0.0"
+          izz="0.00066065" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://oreo_description/meshes/oreo_wheel.dae" />
+        </geometry>
+      </visual>
+    </link>
+
+    <joint
+      name="${joint}"
+      type="continuous">
+      <origin
+        xyz="${joint_xyz}"
+        rpy="${joint_rpy}" />
+      <parent
+        link="${parent}" />
+      <child
+        link="${link}" />
+      <axis
+        xyz="1 0 0" />
+    </joint>
+
+    <!-- rollers -->
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="0" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="1" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="2" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="3" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="4" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="5" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="6" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="7" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="8" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="9" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="10" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    <xacro:roller name="a_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="11" num="12" parent="wheel_link_${name}" offset_angle="0.5" offset_z="-0.02"/>
+    
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="0" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="1" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="2" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="3" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="4" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="5" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="6" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="7" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="8" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="9" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="10" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    <xacro:roller name="b_${name}" roller_radius="${roller_radius}" length="${roller_length}" radius="${wheel_radius}" id="11" num="12" parent="wheel_link_${name}" offset_angle="0" offset_z="-0.005"/>
+    
+    <!-- gazebo description -->
+    <xacro:omni_wheel_gazebo link="${link}" joint="${joint}"/>
+  </xacro:macro>
+</robot>

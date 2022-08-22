@@ -1,0 +1,13 @@
+<launch>
+  <arg name="kinova" default="false"/>
+  <arg name="y412" default="false"/>
+  <arg name="x_pos" default="0"/>
+  <arg name="y_pos" default="0"/>
+  <arg name="z_pos" default="0.2"/> 
+  <arg name="yaw_pos" default="0.0"/>  
+  
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find oreo_description)/urdf/oreo_description.urdf.xacro" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen" 
+    args="-urdf -param robot_description -model oreo 
+    -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw_pos)" />
+</launch>

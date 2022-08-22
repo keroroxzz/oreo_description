@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="oreo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find oreo_description)/urdf/base/oreo_base.gazebo.xacro"/>
+  <xacro:include filename="$(find oreo_description)/urdf/omni_wheel/omni_wheel_complex.xacro"/>
+  <xacro:include filename="$(find oreo_description)/urdf/sensor/laser/sick_lms1xx.urdf.xacro"/>
+
+  <xacro:macro name="oreo_base" params="link">
+  
+    <link name="base_footprint"/>
+    
+    <joint name="dummy" type="fixed">
+      <parent link="base_footprint" />
+      <child link="base_link" />
+    </joint>
+
+    <link
+      name="${link}">
+      <inertial>
+        <origin
+          xyz="0 0 0.15161"
+          rpy="0 0 0" />
+        <mass
+          value="11.95558" />
+        <inertia
+          ixx="0.096859"
+          ixy="-2.5179E-05"
+          ixz="9.47114E-06"
+          iyy="0.0960932"
+          iyz="1.8501E-05"
+          izz="0.185122" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://oreo_description/meshes/oreo_base.dae" />
+        </geometry>
+      </visual>
+      <!-- <collision>
+        <origin xyz="0 0 0.15" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.175" radius="0.20"/>
+        </geometry>
+      </collision> -->
+    </link>
+
+    <!-- omni wheels -->
+    <xacro:omni_wheel name="r" joint_xyz="0.121345 -0.210175705244 0.08" joint_rpy="0 0 -1.0471975512" parent="${link}" wheel_radius="0.065" roller_radius="0.01" roller_length="0.02"/>
+    <xacro:omni_wheel name="l" joint_xyz="0.121345 0.210175705244 0.08" joint_rpy="0 0 1.0471975512" parent="${link}" wheel_radius="0.065" roller_radius="0.01" roller_length="0.02"/>
+    <xacro:omni_wheel name="b" joint_xyz="-0.24269 0.0 0.08" joint_rpy="0 0 -3.14159265359" parent="${link}" wheel_radius="0.065" roller_radius="0.01" roller_length="0.02"/>
+
+    <!-- laser -->
+    <xacro:sick_lms1xx parent="base_link" frame="laser" topic="scan">
+      <origin xyz="0.15 0 0.354" rpy="0 0 0" />
+    </xacro:sick_lms1xx>
+
+    <!-- gazebo description -->
+    <xacro:omni_base_gazebo link="${link}"/>
+  </xacro:macro>
+</robot>

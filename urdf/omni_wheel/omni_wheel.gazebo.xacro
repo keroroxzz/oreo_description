@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<robot name="oreo_setting" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="omni_wheel_gazebo" params="link joint">
+
+    <gazebo reference="${link}">
+        <material>oreo_wheel</material>
+    </gazebo>
+
+    <transmission name="${joint}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${joint}">
+        <mechanicalReduction>1</mechanicalReduction>
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+</robot>

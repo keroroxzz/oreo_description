@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<robot name="oreo_body_setting" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="omni_body_gazebo" params="link">
+    <gazebo reference="${link}">
+        <material>oreo_body</material>
+    </gazebo>
+  </xacro:macro>
+</robot>

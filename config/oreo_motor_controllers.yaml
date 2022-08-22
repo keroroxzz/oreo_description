@@ -1,0 +1,24 @@
+oreo:
+  r:
+    type: effort_controllers/JointVelocityController
+    joint: wheel_joint_r
+    pid:
+      p: 0.5
+      i: 0.0000016
+      d: 0.0005
+
+  l:
+    type: effort_controllers/JointVelocityController
+    joint: wheel_joint_l
+    pid:
+      p: 0.5
+      i: 0.0000016
+      d: 0.0005
+
+  b:
+    type: effort_controllers/JointVelocityController
+    joint: wheel_joint_b
+    pid:
+      p: 0.5
+      i: 0.0000016
+      d: 0.0005

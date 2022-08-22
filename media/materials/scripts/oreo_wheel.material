@@ -1,0 +1,14 @@
+material oreo_wheel
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture oreo_wheel.png
+      }
+    }
+  }
+}
+

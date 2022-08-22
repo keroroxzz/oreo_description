@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="oreo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- ******* -->
+  <!-- Imports -->
+  <!-- ******* -->
+  <xacro:include filename="$(find oreo_description)/urdf/base/oreo_base.urdf.xacro"/>
+  <xacro:include filename="$(find oreo_description)/urdf/body/oreo_body.urdf.xacro"/>
+  
+  <!-- base -->
+  <xacro:oreo_base link="base_link"/>
+  <xacro:oreo_body link="body_link" parent="base_link" joint="body_joint"/>
+
+  <!-- *************** -->
+  <!-- Macro Instances -->
+  <!-- *************** -->
+</robot>
