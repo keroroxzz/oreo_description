@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="oreo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="imu" params="name joint_xyz joint_rpy parent visualize topic">
+    <xacro:property name="link" value="imu_link_${name}" />
+    <xacro:property name="joint" value="imu_joint_${name}" />
+  
+    <joint name="${joint}" type="fixed">
+      <origin
+        xyz="${joint_xyz}"
+        rpy="${joint_rpy}" />
+      <parent link="${parent}" />
+      <child link="${link}" />
+    </joint>
+
+    <link name="${link}"/>
+
+    <gazebo reference="${link}">
+        <sensor type="imu" name="imu">
+            <always_on>true</always_on>
+            <visualize>${visualize}</visualize>
+        </sensor>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <bodyName>${link}</bodyName>
+        <topicName>${topic}</topicName>
+        <serviceName>imu_service</serviceName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <updateRate>100</updateRate>
+        <imu>
+            <noise>
+            <type>gaussian</type>
+            <rate>
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+                <bias_mean>0.0000075</bias_mean>
+                <bias_stddev>0.0000008</bias_stddev>
+            </rate>
+            <accel>
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+                <bias_mean>0.1</bias_mean>
+                <bias_stddev>0.001</bias_stddev>
+            </accel>
+            </noise>
+        </imu>
+        </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

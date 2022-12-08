@@ -14,7 +14,7 @@
     
     <joint name="dummy" type="fixed">
       <parent link="base_footprint" />
-      <child link="base_link" />
+      <child link="${link}" />
     </joint>
 
     <link
@@ -56,7 +56,7 @@
     <xacro:omni_wheel name="b" joint_xyz="-0.24269 0.0 0.08" joint_rpy="0 0 -3.14159265359" parent="${link}" wheel_radius="0.065" roller_radius="0.01" roller_length="0.02"/>
 
     <!-- laser -->
-    <xacro:sick_lms1xx parent="base_link" frame="laser" topic="scan">
+    <xacro:sick_lms1xx parent="${link}" frame="laser" topic="scan">
       <origin xyz="0.15 0 0.354" rpy="0 0 0" />
     </xacro:sick_lms1xx>
 

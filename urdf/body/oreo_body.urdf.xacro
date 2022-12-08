@@ -7,6 +7,7 @@
   <xacro:include filename="$(find oreo_description)/urdf/body/oreo_body.gazebo.xacro"/>
   <xacro:include filename="$(find oreo_description)/urdf/sensor/camera/_d435.urdf.xacro"/>
   <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <xacro:include filename="$(find oreo_description)/urdf/sensor/imu/imu.urdf.xacro"/>
 
   <xacro:macro name="oreo_body" params="link parent joint">
     <link
@@ -34,12 +35,6 @@
             filename="package://oreo_description/meshes/oreo_body.dae" />
         </geometry>
       </visual>
-      <!-- <collision>
-        <origin xyz="0 0 0.30" rpy="0 0 0"/>
-        <geometry>
-          <cylinder length="0.60" radius="0.20"/>
-        </geometry>
-      </collision> -->
     </link>
     <joint
       name="${joint}"
@@ -69,6 +64,9 @@
       <origin xyz="0.175 0 0.5825" rpy="0 0 0" />
     </xacro:sensor_d435>
 
+    <!-- imu -->
+    <xacro:imu name="imu" joint_xyz="0.175 0 0.5825" joint_rpy="0.0 0.0 0.0" parent="${link}" visualize="false" topic="imu"/>
+    
     <!-- gazebo description -->
     <xacro:omni_body_gazebo link="${link}"/>
   </xacro:macro>
