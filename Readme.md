@@ -1,6 +1,6 @@
-# OREO Gazebo model V2.3.0
+# OREO Gazebo model V2.4.0
 
-Last update: 2022/07/17
+Last update: 2022/12/08
 
 # Install
 ## 1. Install ros-control and controllers packages.
